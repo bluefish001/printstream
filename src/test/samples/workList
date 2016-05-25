@@ -1,0 +1,4 @@
+1. workable
+2. No hard code the value
+3. No hard code the original file location
+4. No hard code the destination file location (file name creator)
