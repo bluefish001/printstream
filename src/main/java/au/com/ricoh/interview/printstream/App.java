@@ -10,7 +10,7 @@ public class App
     {
         System.out.println( "Let's do it!" );
         FileProcesser fp = new FileProcesser();
-        fp.proccessFile(null);
+        fp.processFile();
         
         System.out.println( "Done!" );
     }
