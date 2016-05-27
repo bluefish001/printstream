@@ -11,13 +11,26 @@ import java.io.RandomAccessFile;
 public class FileProcesser {
 
 	public void processFile(){
-
-		String filePath = null;
+		processFile(null,null,null);
+	}
+	
+	public void processFile(String filePath, String modifiedFile, String userId){
+	
 		if(null==filePath||"".equalsIgnoreCase(filePath)){
-		// filePath = "C://workspacemars//printstream//src//test//samples//sample1.pjl";
-		filePath="D://Project//eclipseworkspace//printstream//src//test//samples//sample1.pjl";
+			//	filePath = "C://workspacemars//printstream//src//test//samples//sample1.pjl";
+			filePath="D://Project//eclipseworkspace//printstream//src//test//samples//sample1.pjl";
 		}
-		String modifiedFile = "D://Project//eclipseworkspace//printstream//src//test//samples//sample1_modified.pjl";
+		
+		if(null==modifiedFile ||"".equalsIgnoreCase(modifiedFile)){
+			// default value
+			modifiedFile = "D://Project//eclipseworkspace//printstream//src//test//samples//sample1_modified.pjl";
+		}
+		
+		
+		if(null==userId ||"".equalsIgnoreCase(userId)){
+			userId = "HBTest";
+		}
+	
 		File originalFile = new File(filePath);
 		// file pointer before line @PJL SET USERID
 		long startPoint =0;
@@ -47,8 +60,8 @@ public class FileProcesser {
 					outputStream.write(bufferPre);
     
 					//2nd part, use below line replace the user id
-					String userId= "@PJL SET USERID = Test00000002\n";
-					outputStream.write(userId.getBytes());
+					String userIdRow= "@PJL SET USERID = "+userId+"\n";
+					outputStream.write(userIdRow.getBytes());
     
 					//3rd part, read rest of file and put into the new file
 					int size =(int) (raf.length()-endPoint);
@@ -76,7 +89,8 @@ public class FileProcesser {
  
 	}
 	
-	public byte[] readFileSegment(File file, int index, int count) {
+	//get part of file
+	private byte[] readFileSegment(File file, int index, int count) {
 		RandomAccessFile raf;
 		byte[] buffer = new byte[count];
 		try {
